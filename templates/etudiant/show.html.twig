@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Etudiant</h1>
+
+<table id="etudiantTable" class="table">
+    <thead>
+        <tr>
+            <th>nce</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ etudiant.nce }}</td>
+            <td>{{ etudiant.nom }}</td>
+            <td>{{ etudiant.prenom }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    <a href="{{ path('app_etudiant_index') }}">back to list</a>
+
+    <a href="{{ path('app_etudiant_edit', {'nce': etudiant.nce}) }}">edit</a>
+
+    {{ include('etudiant/_delete_form.html.twig') }}
+{% endblock %}
+
+{% endblock %}
+
+
+<script>
+    $(document).ready(function() {
+        $('#etudiantTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.5/i18n/en-GB.json" // Optional: Set language
+            }
+        });
+    });
+</script>
