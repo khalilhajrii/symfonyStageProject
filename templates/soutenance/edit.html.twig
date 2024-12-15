@@ -1,18 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Enseignant{% endblock %}
+{% block title %}Edit Soutenance{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
-        <h1>Edit Enseignant</h1>
+        <h1>Edit Soutenance</h1>
 
+        <!-- Edit Form inside a card -->
         <div class="card p-4 mt-3">
-            {{ include('enseignant/_form.html.twig', {'button_label': 'Update'}) }}
+            {{ include('soutenance/_form.html.twig', {'button_label': 'Update'}) }}
         </div>
 
+        <!-- Buttons for navigation and deletion -->
         <div class="d-flex justify-content-between mt-3">
             <!-- Back to list button -->
-            <a href="{{ path('app_enseignant_index') }}" class="btn btn-primary">
+            <a href="{{ path('app_soutenance_index') }}" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back to list
             </a>
         </div>

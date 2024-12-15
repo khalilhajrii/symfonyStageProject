@@ -27,10 +27,8 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
     
-            // Hash the password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
     
-            // Ensure at least 'ROLE_USER' is assigned
             if (empty($user->getRoles())) {
                 $user->addRole('ROLE_USER');
             }

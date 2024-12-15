@@ -21,13 +21,9 @@ class Etudiant
     #[ORM\Column(type: 'string', length: 255)]
     private $prenom;
 
-    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Soutenance::class)]
-    private Collection $soutenances;
+    #[ORM\OneToOne(mappedBy: 'etudiant', targetEntity: Soutenance::class)]
+    private Soutenance $soutenance;
 
-    public function __construct()
-    {
-        $this->soutenances = new ArrayCollection();
-    }
     public function getNce(): ?int
     {
         return $this->nce;
@@ -54,22 +50,17 @@ class Etudiant
     }
 
 
-        /**
-     * @return Collection|Soutenance[]
+    /**
+     * @return Soutenance
      */
-    public function getSoutenances(): Collection
+    public function getSoutenance(): Soutenance
     {
-        return $this->soutenances;
+        return $this->soutenance;
     }
 
-    public function addSoutenance(Soutenance $soutenance): self
+    public function __toString(): string
     {
-        if (!$this->soutenances->contains($soutenance)) {
-            $this->soutenances[] = $soutenance;
-            $soutenance->setEtudiant($this);
-        }
-
-        return $this;
+        return $this->nom . ' ' . $this->prenom;
     }
 
 }

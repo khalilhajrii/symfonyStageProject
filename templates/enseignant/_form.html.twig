@@ -1,4 +1,29 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="mb-3">
+    {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+    {% if form.nom.vars.errors|length > 0 %}
+        <div class="text-danger">
+            {{ form_errors(form.nom) }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.prenom, 'Prenom', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+    {% if form.prenom.vars.errors|length > 0 %}
+        <div class="text-danger">
+            {{ form_errors(form.prenom) }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="text-center">
+    <button class="btn btn-success" type="submit">
+        <i class="fas fa-save"></i> {{ button_label|default('Save') }}
+    </button>
+</div>
+
 {{ form_end(form) }}

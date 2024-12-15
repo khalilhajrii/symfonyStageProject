@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soutenance index{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Soutenance</h1>
+    <div class="text-right mb-3">
+                <a href="{{ path('app_soutenance_new') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Create New
+                </a>
+    </div>
+<div class="table-responsive">
+    <table id="etudiantTable" class="table table-striped table-bordered dataTable">
+        <thead>
+            <tr>
+                <th>Numjury</th>
+                <th>DateSoutenance</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for soutenance in soutenances %}
+            <tr>
+                <td>{{ soutenance.numjury }}</td>
+                <td>{{ soutenance.dateSoutenance ? soutenance.dateSoutenance|date('Y-m-d') : '' }}</td>
+                <td>{{ soutenance.note }}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{{ path('app_soutenance_show', {'numjury': soutenance.numjury}) }}">show</a>
+                    <a class="btn btn-warning btn-sm" href="{{ path('app_soutenance_edit', {'numjury': soutenance.numjury}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+{% endblock %}

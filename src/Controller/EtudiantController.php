@@ -76,11 +76,24 @@ final class EtudiantController extends AbstractController
     public function delete(Request $request, Etudiant $etudiant, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        if ($this->isCsrfTokenValid('delete'.$etudiant->getnce(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $etudiant->getnce(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($etudiant);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_etudiant_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('Soutenance/{nce}', name: 'app__soutenance_etudiant_show', methods: ['GET'])]
+    public function showSoutenances(Etudiant $etudiant): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $soutenance = $etudiant->getSoutenance();
+
+        return $this->render('etudiant/showSoutenance.html.twig', [
+            'etudiant' => $etudiant,
+            'soutenance' => $soutenance,
+        ]);
     }
 }

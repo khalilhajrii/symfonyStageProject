@@ -44,20 +44,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-    // Check if the user is authenticated and get their roles
     $user = $token->getUser();
     
-    // If the user is an admin, redirect to the /admin page
     if (in_array('ROLE_ADMIN', $user->getRoles())) {
         return new RedirectResponse($this->urlGenerator->generate('admin_dashboard')); // or your custom admin route
     }
 
-    // Otherwise, redirect to a regular user's target page (e.g., enseignants page)
     if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
         return new RedirectResponse($targetPath);
     }
 
-    // Default redirect (for non-admin users)
     return new RedirectResponse($this->urlGenerator->generate('app_enseignant_index'));
     }
 

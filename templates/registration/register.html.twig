@@ -1,3 +1,4 @@
+{% extends 'base.html.twig' %}
 {% block body %}
     <h1>Register</h1>
 
@@ -11,7 +12,6 @@
         {{ form_row(registrationForm.roles, {
             label: 'Select Role'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
         <button type="submit" class="btn btn-success">Register</button>
     {{ form_end(registrationForm) }}

@@ -18,8 +18,8 @@ class Enseignant
     private $nom;
     #[ORM\Column(type: 'string', length: 255)]
     private $prenom;
-    #[ORM\OneToMany(mappedBy: 'enseignant', targetEntity: Soutenance::class)]
-    private $soutenances;
+    #[ORM\OneToMany(targetEntity: Soutenance::class, mappedBy: 'enseignant')]
+    private Collection $soutenances;
 
     public function __construct()
     {
@@ -63,7 +63,7 @@ class Enseignant
     {
         return $this->soutenances;
     }
-    public function addSoutenance(Soutenance $soutenance): self
+        public function addSoutenance(Soutenance $soutenance): self
     {
         if (!$this->soutenances->contains($soutenance)) {
             $this->soutenances[] = $soutenance;
@@ -75,13 +75,16 @@ class Enseignant
     public function removeSoutenance(Soutenance $soutenance): self
     {
         if ($this->soutenances->removeElement($soutenance)) {
-            // set the owning side to null (unless already changed)
             if ($soutenance->getEnseignant() === $this) {
                 $soutenance->setEnseignant(null);
             }
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->nom . ' ' . $this->prenom;
     }
     
 }

@@ -5,23 +5,22 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
     </head>
     <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+  <a class="navbar-brand" href="#"><img src="{{ asset('img/stages.png') }}" width="40px"/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
@@ -30,27 +29,57 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_etudiant_index') }}">Étudiant</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_soutenance_index') }}">Soutenances</a>
+                </li>
             </ul>
-            {% endif %}
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <form class="d-flex" action="{{ path('app_logout') }}" method="post">
-                    <button class="btn btn-danger" type="submit">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </form>
-            {% else %}
-                <a class="btn btn-primary" href="{{ path('app_login') }}">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </a>
-            {% endif %}
-        </div>
+        {% endif %}
+    </ul>
+    <div class="my-2 my-lg-0">
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Bonjour  {{ app.user.username }}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="dropdown-item" href="{{ path('admin_dashboard') }}">Admin Page</a>
+        {% endif %}
+        <a class="dropdown-item" href="{{ path('app_logout') }}">Deconnexion</a>
     </div>
+{% else %}
+    <a class="btn btn-primary" href="{{ path('app_login') }}">
+        <i class="fas fa-sign-in-alt"></i> Login
+    </a>
+{% endif %}
+
+    </div>
+  </div>
 </nav>
 
-
-        
         {% block body %}{% endblock %}
-                <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+        <!-- Bootstrap Bundle (for navbar toggle) -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <script>
+                $(document).ready(function() {
+                    // Initialize DataTable for any table with the class 'dataTable'
+                    $('.dataTable').DataTable({
+                        "paging": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                    });
+                });
+            </script>
+        {% endblock %}
     </body>
 </html>

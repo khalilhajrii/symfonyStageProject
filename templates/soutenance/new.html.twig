@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Soutenance{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+    <h1>Create new Soutenance</h1>
+        <div class="card p-4 mt-3">
+    {{ include('soutenance/_form.html.twig') }}
+</div>
+        <div class="mt-3">
+    <a class="btn btn-primary" href="{{ path('app_soutenance_index') }}">back to list</a>
+    </div>
+    </div>
+{% endblock %}

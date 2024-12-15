@@ -3,45 +3,60 @@
 {% block title %}Etudiant{% endblock %}
 
 {% block body %}
-    <h1>Etudiant</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4">Détails de l'Etudiant</h1>
 
-<table id="etudiantTable" class="table">
-    <thead>
-        <tr>
-            <th>nce</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ etudiant.nce }}</td>
-            <td>{{ etudiant.nom }}</td>
-            <td>{{ etudiant.prenom }}</td>
-        </tr>
-    </tbody>
-</table>
+        <!-- Table to show student details -->
+        <table class="table table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row">NCE</th>
+                    <td>{{ etudiant.nce }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nom</th>
+                    <td>{{ etudiant.nom }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Prénom</th>
+                    <td>{{ etudiant.prenom }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_etudiant_index') }}">back to list</a>
+        <!-- Action buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ path('app_etudiant_index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
 
-    <a href="{{ path('app_etudiant_edit', {'nce': etudiant.nce}) }}">edit</a>
+            <a href="{{ path('app_etudiant_edit', {'nce': etudiant.nce}) }}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+            Delete
+            </button>
 
-    {{ include('etudiant/_delete_form.html.twig') }}
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this student ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{ include('etudiant/_delete_form.html.twig') }}
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
-{% endblock %}
-
-
-<script>
-    $(document).ready(function() {
-        $('#etudiantTable').DataTable({
-            "paging": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.13.5/i18n/en-GB.json" // Optional: Set language
-            }
-        });
-    });
-</script>

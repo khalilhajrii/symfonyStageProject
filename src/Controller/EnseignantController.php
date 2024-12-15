@@ -83,4 +83,17 @@ final class EnseignantController extends AbstractController
         }
         return $this->redirectToRoute('app_enseignant_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('Soutenances/{matricule}', name: 'app__soutenances_enseignant_show', methods: ['GET'])]
+    public function showSoutenances(Enseignant $enseignant): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+    
+        $soutenances = $enseignant->getSoutenances();
+    
+        return $this->render('enseignant/showSoutenance.html.twig', [
+            'enseignant' => $enseignant,  
+            'soutenances' => $soutenances, 
+        ]);
+    }
 }

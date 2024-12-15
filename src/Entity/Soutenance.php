@@ -18,12 +18,12 @@ class Soutenance
     #[ORM\Column(type: 'float')]
     private $note;
 
-    #[ORM\ManyToOne(targetEntity: Enseignant::class, inversedBy: 'soutenances')]
-    #[ORM\JoinColumn(name: 'matricule', referencedColumnName: 'matricule', nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Enseignant::class, inversedBy: 'soutenances',cascade: ['remove'])]
+    #[ORM\JoinColumn(name: 'matricule', referencedColumnName: 'matricule', nullable: false,onDelete: 'CASCADE')]
     private $enseignant;
 
-    #[ORM\ManyToOne(targetEntity: Etudiant::class, inversedBy: 'soutenances')]
-    #[ORM\JoinColumn(name: 'nce', referencedColumnName: 'nce', nullable: false)]
+    #[ORM\OneToOne(targetEntity: Etudiant::class, inversedBy: 'soutenance', cascade: ['remove'])]
+    #[ORM\JoinColumn(name: 'nce', referencedColumnName: 'nce', nullable: false, onDelete: 'CASCADE')]
     private $etudiant;
 
     public function getNumjury(): ?int

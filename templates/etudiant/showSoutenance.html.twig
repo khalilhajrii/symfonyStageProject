@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soutenance of {{ etudiant.nom }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>{{ etudiant.nom }}'s Soutenance</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered dataTable">
+                <thead>
+                    <tr>
+                        <th>Date of Soutenance</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>{{ soutenance.dateSoutenance|date('Y-m-d') }}</td>
+                            <td>{{ soutenance.note }}</td>
+                        </tr>
+                </tbody>
+            </table>
+                        <a href="{{ path('app_etudiant_index') }}" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+{% endblock %}

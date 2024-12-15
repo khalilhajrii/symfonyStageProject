@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Soutenance;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -32,7 +33,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Listes des etudiants', 'fas fa-list', Etudiant::class);
         yield MenuItem::section('Enseignant', 'fa fa-chalkboard-user');
         yield MenuItem::linkToCrud('Listes des enseignant', 'fas fa-list', Enseignant::class);
+        yield MenuItem::section('Soutenance', 'fa fa-graduation-cap');
+        yield MenuItem::linkToCrud('Listes des Soutenances', 'fas fa-list', Soutenance::class);
         yield MenuItem::section('Users', 'fa fa-user');
         yield MenuItem::linkToCrud('Listes des Utilisateurs', 'fas fa-list', User::class);
+        yield MenuItem::section('', '');
+        yield MenuItem::linkToRoute('Back to app', 'fa fa-backward','app_enseignant_index');
     }
 }

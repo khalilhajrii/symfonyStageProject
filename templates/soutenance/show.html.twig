@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Enseignant{% endblock %}
+{% block title %}Soutenance{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1 class="mb-4">Enseignant Details</h1>
+        <h1 class="mb-4">Soutenance Details</h1>
 
         <table class="table table-bordered table-striped">
             <tbody>
                 <tr>
-                    <th scope="row">Matricule</th>
-                    <td>{{ enseignant.matricule }}</td>
+                    <th scope="row">Numjury</th>
+                    <td>{{ soutenance.numjury }}</td>
                 </tr>
                 <tr>
-                    <th scope="row">Nom</th>
-                    <td>{{ enseignant.nom }}</td>
+                    <th scope="row">DateSoutenance</th>
+                    <td>{{ soutenance.dateSoutenance ? soutenance.dateSoutenance|date('Y-m-d') : '' }}</td>
                 </tr>
                 <tr>
-                    <th scope="row">Prenom</th>
-                    <td>{{ enseignant.prenom }}</td>
+                    <th scope="row">Note</th>
+                    <td>{{ soutenance.note }}</td>
                 </tr>
             </tbody>
         </table>
 
         <div class="d-flex justify-content-between mt-4">
-            <a href="{{ path('app_enseignant_index') }}" class="btn btn-primary">
+            <a href="{{ path('app_soutenance_index') }}" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back to List
             </a>
 
             <div class="d-flex">
-                <a href="{{ path('app_enseignant_edit', {'matricule': enseignant.matricule}) }}" class="btn btn-primary mx-2">
+                <a href="{{ path('app_soutenance_edit', {'numjury': soutenance.numjury}) }}" class="btn btn-primary mx-2">
                     <i class="fas fa-edit"></i> Edit
                 </a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
             Delete
             </button>
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -49,13 +49,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    {{ include('enseignant/_delete_form.html.twig') }}
+                    {{ include('soutenance/_delete_form.html.twig') }}
                 </div>
                 </div>
             </div>
             </div>
         </div>
-    </div>
             </div>
         </div>
     </div>
